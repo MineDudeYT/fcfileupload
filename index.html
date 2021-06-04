@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Uploader</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+</head>
+<body>
+    <form id="form" action="https://script.google.com/macros/s/AKfycbw9wUDrnx21ttSlIb1gW_Q6rHrcHgS3UZ6JNdfyovHopr7eeX7IPL_f1uT7kKW4u0JbAA/exec" method="post">
+        Upload a file
+        <div id="data"></div>
+        <input name="file" id="uploadfile" type="file">
+        <input id="submit" type="submit" formaction="https://script.google.com/macros/s/AKfycbw9wUDrnx21ttSlIb1gW_Q6rHrcHgS3UZ6JNdfyovHopr7eeX7IPL_f1uT7kKW4u0JbAA/exec" target="_blank">
+        <input id="submit" type="submit" value="Notify Me" formaction="https://script.google.com/macros/s/AKfycbwXb4PY6urOEc6TAfUQUK-r-hAYPoPTCLONhhnKNOVyyOHNQuNB7cX707f3X3hbP8Ei0Q/exec?function=sendEmail" target="_blank">
+        <p><b>Make sure to hit both buttons on the right! (You need to hit them pretty quickly!)</b></p> <br />
+    </form>
+    <script>
+    $('#uploadfile').on("change", function() {
+        var file = this.files[0];
+        var fr = new FileReader();
+        fr.fileName = file.name
+        fr.onload = function(e) {
+            e.target.result
+            html = '<input type="hidden" name="data" value="' + e.target.result.replace(/^.*,/, '') + '" >';
+            html += '<input type="hidden" name="mimetype" value="' + e.target.result.match(/^.*(?=;)/)[0] + '" >';
+            html += '<input type="hidden" name="filename" value="' + e.target.fileName + '" >';
+            $("#data").empty().append(html);
+        }
+        fr.readAsDataURL(file);
+    });
+    </script>
+</body>
+</html>
